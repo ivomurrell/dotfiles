@@ -1,6 +1,7 @@
 [core]
 	excludesFile = ~/.gitignore
 	pager = less -+X
+	editor = nvim
 [user]
 	name = Ivo Murrell
 	email = {{ .email }}
@@ -21,20 +22,20 @@
 	conflictStyle = diff3
 [help]
 	autoCorrect = 15
-# [pager]
-# 	diff = delta
-# 	log = delta
-# 	reflog = delta
-# 	show = delta
-# 	difftool = true
-# [interactive]
-# 	diffFilter = delta --color-only --features=interactive
-# [diff]
-# 	tool = difftastic
-# [difftool]
-# 	prompt = false
-# [difftool "difftastic"]
-# 	cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+	difftool = true
+[interactive]
+	diffFilter = delta --color-only --features=interactive
+[diff]
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
 
 [delta]
 	features = mantis-shrimp
@@ -74,3 +75,8 @@
 	plus-emph-style = syntax bold "#007800"
 	plus-style = syntax "#004433"
 	whitespace-error-style = "#280050"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

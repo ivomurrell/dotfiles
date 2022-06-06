@@ -1,0 +1,35 @@
+# Set up the starship prompt
+starship init fish | source
+# Set up the zoxide cd/z alternative
+zoxide init fish | source
+
+{{- if eq .chezmoi.arch "arm64" }}
+# Add Apple Silicon homebrew prefix to PATH
+fish_add_path /opt/homebrew/bin
+{{- end }}
+# Add emacs binaries to PATH such as Doom utilities
+fish_add_path ~/.emacs.d/bin
+# Add cargo global packages to PATH
+fish_add_path ~/.cargo/bin
+# Add misc local symlinks to PATH
+fish_add_path ~/bin
+
+# Set the personal access token to use for authentication with Vault.
+# set -gx VAULT_AUTH_GITHUB_TOKEN (security find-generic-password -a "$USER" -s "FT Vault" -w)
+
+{{- /* Use 1Password as an ssh agent on computers that have been set up for it */ -}}
+{{- if ne .chezmoi.hostname "FT-MW1112" }}
+# Use 1Password as an ssh agent
+set -gx SSH_AUTH_SOCK "~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+{{- end }}
+
+# Enable AWS CLI autocompletion: github.com/aws/aws-cli/issues/1079
+complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
+
+# iTerm shell integration
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish ; or true
+
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
+
+set -gx EDITOR nvim

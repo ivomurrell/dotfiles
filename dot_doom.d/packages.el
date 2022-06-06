@@ -53,3 +53,5 @@
 (package! magit-delta :disable t)
 
 (package! scroll-on-jump)
+
+(package! vcl-mode)
