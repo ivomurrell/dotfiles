@@ -3,7 +3,10 @@ require('plugins')
 vim.opt.mouse = 'a'
 vim.opt.updatetime = 100
 vim.opt.number = true
-vim.cmd[[colorscheme tokyonight]]
+vim.opt.signcolumn = 'yes'
+vim.opt.undofile = true
+vim.opt.termguicolors = true
+vim.cmd [[colorscheme tokyonight]]
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -37,6 +40,21 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+
+  vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = 'rounded',
+        source = 'always',
+        prefix = ' ',
+        scope = 'cursor',
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end
+  })
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -71,8 +89,15 @@ require('lspconfig').sumneko_lua.setup({
   },
 })
 
-require('telescope').load_extension('projects')
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files)
+require('telescope').load_extension('fzf')
+vim.keymap.set('n', '<space><space>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
+
+vim.keymap.set('n', '<Leader>s', '<Plug>Sneak_s')
+vim.keymap.set('n', '<Leader>S', '<Plug>Sneak_S')
+vim.keymap.set('n', 'f', '<Plug>Sneak_f')
+vim.keymap.set('n', 'F', '<Plug>Sneak_F')
+vim.keymap.set('n', 't', '<Plug>Sneak_t')
+vim.keymap.set('n', 'T', '<Plug>Sneak_T')
