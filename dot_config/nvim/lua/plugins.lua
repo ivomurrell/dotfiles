@@ -44,18 +44,7 @@ require('packer').startup(function(use)
   use 'machakann/vim-sandwich' -- Add surroundings to text objects
   use 'justinmk/vim-sneak' -- Jump to location with two characters
   use { 'airblade/vim-gitgutter', disable = true } -- Show git diffs in sign column
-  use {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup {
-        current_line_blame = true,
-        current_line_blame_opts = {
-          virt_text_pos = 'right_align',
-          delay = 400
-        }
-      }
-    end
-  } -- Pretty git gutter and in-line blame
+  use 'lewis6991/gitsigns.nvim' -- Pretty git gutter and in-line blame
   use {
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',

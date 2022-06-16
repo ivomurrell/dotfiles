@@ -105,6 +105,31 @@ require('lspconfig').sumneko_lua.setup({
 })
 require('lspconfig').eslint.setup {}
 
+require('gitsigns').setup {
+  current_line_blame = true,
+  current_line_blame_opts = {
+    virt_text_pos = 'right_align',
+    delay = 400
+  },
+  on_attach = function(bufnr)
+    vim.keymap.set('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() require('gitsigns').next_hunk() end)
+      return '<Ignore>'
+    end, { buffer = bufnr, expr = true })
+    vim.keymap.set('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() require('gitsigns').prev_hunk() end)
+      return '<Ignore>'
+    end, { buffer = bufnr, expr = true })
+
+    vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk)
+    vim.keymap.set('n', '<leader>tb', require('gitsigns').toggle_current_line_blame)
+
+    vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
+
 require('telescope').load_extension('fzf')
 vim.keymap.set('n', '<space><space>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
@@ -113,7 +138,17 @@ vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
 
 vim.keymap.set('n', '<Leader>s', '<Plug>Sneak_s')
 vim.keymap.set('n', '<Leader>S', '<Plug>Sneak_S')
+vim.keymap.set({ 'o', 'x' }, 'z', '<Plug>Sneak_s')
+vim.keymap.set({ 'o', 'x' }, 'Z', '<Plug>Sneak_S')
 vim.keymap.set('n', 'f', '<Plug>Sneak_f')
 vim.keymap.set('n', 'F', '<Plug>Sneak_F')
 vim.keymap.set('n', 't', '<Plug>Sneak_t')
 vim.keymap.set('n', 'T', '<Plug>Sneak_T')
+
+vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<cr>')
+vim.keymap.set('n', '<leader>r', '<cmd>NvimTreeRefresh<cr>')
+vim.keymap.set('n', '<leader>n', '<cmd>NvimTreeFindFile<cr>')
+
+vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>')
+vim.keymap.set('n', '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>')
+vim.keymap.set('n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>')
