@@ -1,6 +1,40 @@
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim' -- Package manager
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = { "typescript", "lua", "rust" },
+        highlight = {
+          enable = true
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
+            keymaps = {
+              -- You can use the capture groups defined in textobjects.scm
+              ["as"] = "@statement.outer",
+              ["a?"] = "@conditional.outer",
+              ["i?"] = "@conditional.inner",
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+            },
+          }
+        },
+        matchup = {
+          enable = true
+        }
+      }
+    end
+  } -- Better/faster syntax highlighting with treesitter
+  use 'nvim-treesitter/nvim-treesitter-textobjects' -- Add treesitter groups as textobjects
+  use 'andymass/vim-matchup' -- Improve %-jumping with treesitter integration
   use 'folke/tokyonight.nvim' -- Colour scheme that supports other plugins
   use 'tpope/vim-commentary' -- Comment out lines
   use 'tpope/vim-sleuth' -- Detect indentation
