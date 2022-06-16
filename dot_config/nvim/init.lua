@@ -55,6 +55,21 @@ local on_attach = function(client, bufnr)
       vim.diagnostic.open_float(nil, opts)
     end
   })
+
+  if client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+    vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      callback = vim.lsp.buf.document_highlight,
+      buffer = bufnr,
+      group = "lsp_document_highlight",
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+      callback = vim.lsp.buf.clear_references,
+      buffer = bufnr,
+      group = "lsp_document_highlight",
+    })
+  end
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
