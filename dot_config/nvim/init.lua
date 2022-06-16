@@ -103,6 +103,7 @@ require('lspconfig').sumneko_lua.setup({
     },
   },
 })
+require('lspconfig').eslint.setup {}
 
 require('telescope').load_extension('fzf')
 vim.keymap.set('n', '<space><space>', require('telescope.builtin').find_files)
