@@ -56,10 +56,30 @@ require('packer').startup(function(use)
       }
     end
   } -- Pretty git gutter and in-line blame
-  use 'kyazdani42/nvim-web-devicons' -- File icons in search views
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    tag = 'nightly',
+    config = function()
+      require('nvim-tree').setup {
+        actions = {
+          open_file = {
+            quit_on_open = true
+          }
+        }
+      }
+    end
+  } -- Graphical file explorer
+  use {
+    'folke/trouble.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('trouble').setup {}
+    end
+  } -- List diagnositic errors
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim' }
+    requires = { 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons' }
   } -- Fuzzy search for various lists such as project files
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
