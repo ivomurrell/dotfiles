@@ -45,6 +45,21 @@ require('packer').startup(function(use)
   use 'machakann/vim-highlightedyank' -- Highlight line when yanking
   use 'machakann/vim-sandwich' -- Add surroundings to text objects
   use 'justinmk/vim-sneak' -- Jump to location with two characters
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function()
+      local function indentation()
+        local indent_type = vim.opt.expandtab:get() and 'spaces' or 'tabs'
+        return indent_type .. ': ' .. vim.opt.shiftwidth:get()
+      end
+
+      require('lualine').setup {
+        sections = { lualine_x = { indentation, 'filetype' } },
+        extensions = { 'fugitive', 'nvim-tree' }
+      }
+    end
+  } -- Customisable status line
   use { 'airblade/vim-gitgutter', disable = true } -- Show git diffs in sign column
   use 'lewis6991/gitsigns.nvim' -- Pretty git gutter and in-line blame
   use {
