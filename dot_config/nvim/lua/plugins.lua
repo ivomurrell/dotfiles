@@ -24,6 +24,8 @@ require('packer').startup(function(use)
               ["if"] = "@function.inner",
               ["ac"] = "@class.outer",
               ["ic"] = "@class.inner",
+              ["ia"] = "@parameter.inner",
+              ["aa"] = "@parameter.outer",
             },
           }
         },
