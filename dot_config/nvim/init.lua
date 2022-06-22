@@ -53,7 +53,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_create_autocmd("CursorHold", {
     buffer = bufnr,
     callback = function()
-      local opts = {
+      local float_opts = {
         focusable = false,
         close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
         border = 'rounded',
@@ -61,7 +61,7 @@ local on_attach = function(client, bufnr)
         prefix = ' ',
         scope = 'cursor',
       }
-      vim.diagnostic.open_float(nil, opts)
+      vim.diagnostic.open_float(nil, float_opts)
     end
   })
 
