@@ -142,7 +142,9 @@ require('gitsigns').setup {
 require('telescope').load_extension('fzf')
 vim.keymap.set('n', '<space><space>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
+vim.keymap.set('n', '<leader>*', require('telescope.builtin').grep_string)
 vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
+vim.keymap.set('n', '<leader>ft', require('telescope.builtin').lsp_dynamic_workspace_symbols)
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
 
 vim.keymap.set('n', '<Leader>s', '<Plug>Sneak_s')
