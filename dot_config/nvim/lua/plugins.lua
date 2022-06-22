@@ -55,7 +55,10 @@ require('packer').startup(function(use)
       end
 
       require('lualine').setup {
-        sections = { lualine_x = { indentation, 'filetype' } },
+        sections = {
+          lualine_c = { { 'filename', path = 1 } },
+          lualine_x = { indentation, 'filetype' },
+        },
         extensions = { 'fugitive', 'nvim-tree' }
       }
     end
