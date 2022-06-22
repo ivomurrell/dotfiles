@@ -41,6 +41,15 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 
+  local function organizeImports()
+    vim.lsp.buf.execute_command({
+      command = "_typescript.organizeImports",
+      arguments = { vim.api.nvim_buf_get_name(bufnr) }
+    })
+  end
+
+  vim.keymap.set('n', '<space>co', organizeImports, bufopts)
+
   vim.api.nvim_create_autocmd("CursorHold", {
     buffer = bufnr,
     callback = function()
