@@ -6,7 +6,7 @@ require('packer').startup(function(use)
     run = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { "typescript", "lua", "rust" },
+        ensure_installed = { "typescript", "javascript", "lua", "rust" },
         highlight = {
           enable = true
         },
