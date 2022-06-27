@@ -112,12 +112,13 @@ require('packer').startup(function(use)
   use {
     'mhartington/formatter.nvim',
     config = function()
+      local prettier_files = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+      local prettier_config = {}
+      for _, ft in pairs(prettier_files) do
+        prettier_config[ft] = { require('formatter.filetypes.' .. ft).prettier }
+      end
       require('formatter').setup {
-        filetype = {
-          typescript = {
-            require('formatter.filetypes.typescript').prettier
-          }
-        }
+        filetype = prettier_config
       }
     end
   } -- Format source files
