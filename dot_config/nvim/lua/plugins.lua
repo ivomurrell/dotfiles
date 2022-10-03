@@ -1,5 +1,6 @@
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim' -- Package manager
+  use 'lewis6991/impatient.nvim' -- Implements caching to speed up startup
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -45,6 +46,8 @@ require('packer').startup(function(use)
   use 'machakann/vim-highlightedyank' -- Highlight line when yanking
   use 'machakann/vim-sandwich' -- Add surroundings to text objects
   use 'justinmk/vim-sneak' -- Jump to location with two characters
+  use 'jiangmiao/auto-pairs' -- Insert closing characters for pairs
+  use 'tommcdo/vim-lion' -- Aligning text
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
@@ -63,7 +66,6 @@ require('packer').startup(function(use)
       }
     end
   } -- Customisable status line
-  use { 'airblade/vim-gitgutter', disable = true } -- Show git diffs in sign column
   use 'lewis6991/gitsigns.nvim' -- Pretty git gutter and in-line blame
   use {
     'kyazdani42/nvim-tree.lua',
@@ -80,27 +82,31 @@ require('packer').startup(function(use)
     end
   } -- Graphical file explorer
   use {
+    'akinsho/bufferline.nvim',
+    tag = "v2.*",
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('bufferline').setup {}
+    end
+  } -- Tabs in a buffer line
+  use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('trouble').setup {}
     end
   } -- List diagnositic errors
+  use { 'mfussenegger/nvim-dap', disable = true } -- Debugging tooling
+  use { 'rcarriga/nvim-dap-ui', disable = true, requires = { 'mfussenegger/nvim-dap' } } -- UI for debugging
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons' }
+    branch = '0.1.x',
+    requires = { 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons' },
   } -- Fuzzy search for various lists such as project files
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'make'
   } -- Use fzf for searching with telescope
-  use {
-    'ahmedkhalf/project.nvim',
-    disable = true,
-    config = function()
-      require('project_nvim').setup {}
-    end
-  } -- Changes CWD to the project root
   use {
     'TimUntersberger/neogit',
     disable = true,
@@ -111,31 +117,103 @@ require('packer').startup(function(use)
   } -- Magit clone for Neovim
   use {
     'mhartington/formatter.nvim',
+    ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'rust' },
     config = function()
       local prettier_files = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
       local prettier_config = {}
       for _, ft in pairs(prettier_files) do
         prettier_config[ft] = { require('formatter.filetypes.' .. ft).prettier }
       end
+      local rust_fmt =  require('formatter.filetypes.rust').rustfmt()
+      rust_fmt.args ={ "--edition=2021"}
+      prettier_config['rust'] = { function()
+        return rust_fmt
+      end }
       require('formatter').setup {
         filetype = prettier_config
       }
     end
   } -- Format source files
   use {
-    'ms-jpq/coq_nvim',
-    setup = function()
-      vim.g.coq_settings = { auto_start = 'shut-up' }
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp', -- Use LSP for autocompletion
+      'L3MON4D3/LuaSnip', -- Snippet engine
+      'hrsh7th/cmp-nvim-lsp-signature-help', -- View function signature when filling parameters
+      'hrsh7th/cmp-buffer', -- Autocompletion for strings in buffer
+      'hrsh7th/cmp-path', -- Autocompletion for file paths
+      'hrsh7th/cmp-cmdline', -- Autocompletion for vim's cmdline
+      {
+        'David-Kunz/cmp-npm',
+        requires = {
+          'nvim-lua/plenary.nvim'
+        }
+      } -- Autocompletion for npm packages
+    },
+    config = function()
+      local has_words_before = function()
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      end
+      local cmp = require('cmp')
+      local luasnip = require('luasnip')
+
+      if (cmp) then
+        cmp.setup({
+          snippet = {
+            expand = function(args)
+              luasnip.lsp_expand(args.body)
+            end
+          },
+          mapping = cmp.mapping.preset.insert({
+            ['<C-e>'] = cmp.mapping.abort(),
+            ['<CR>'] = cmp.mapping.confirm({ select = true }),
+            ["<Tab>"] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+              elseif has_words_before() then
+                cmp.complete()
+              else
+                fallback()
+              end
+            end, { "i", "s" }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+              elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+              else
+                fallback()
+              end
+            end, { "i", "s" }),
+          }),
+          sources = cmp.config.sources({
+            { name = 'nvim_lsp' },
+            { name = 'nvim_lsp_signature_help' },
+            { name = 'buffer' },
+            { name = 'path' },
+            { name = 'npm', keyword_length = 4 }
+          })
+        })
+        cmp.setup.cmdline('/', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = 'buffer' }
+          }
+        })
+        cmp.setup.cmdline(':', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = cmp.config.sources({
+            { name = 'path' }
+          }, {
+            { name = 'cmdline' }
+          })
+        })
+      end
     end
   } -- Code autocompletion
-  use 'ms-jpq/coq.artifacts' -- Autocompletion snippets
-  use {
-    'karb94/neoscroll.nvim',
-    config = function()
-      require('neoscroll').setup {
-        stop_eof = false,
-        easing = 'cubic'
-      }
-    end
-  } -- Smooooth scrolling
+  use 'stevearc/dressing.nvim' -- Make input windows nicer
+  use 'smerrill/vcl-vim-plugin' -- VCL syntax support
 end)

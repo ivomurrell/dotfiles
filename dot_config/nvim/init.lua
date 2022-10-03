@@ -1,3 +1,4 @@
+require('impatient')
 require('plugins')
 
 vim.opt.mouse = 'a'
@@ -81,16 +82,20 @@ local on_attach = function(client, bufnr)
   end
 end
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { 'rust_analyzer', 'tsserver' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup({
     on_attach = on_attach,
+    capabilities = capabilities,
   })
 end
 require('lspconfig').sumneko_lua.setup({
   on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -112,10 +117,12 @@ require('lspconfig').sumneko_lua.setup({
     },
   },
 })
-require('lspconfig').eslint.setup {}
+require('lspconfig').eslint.setup {
+  capabilities = capabilities
+}
 
 require('gitsigns').setup {
-  current_line_blame = true,
+  current_line_blame = false,
   current_line_blame_opts = {
     virt_text_pos = 'right_align',
     delay = 400
