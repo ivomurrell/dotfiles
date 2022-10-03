@@ -153,6 +153,16 @@ vim.keymap.set('n', '<leader>*', require('telescope.builtin').grep_string)
 vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>ft', require('telescope.builtin').lsp_dynamic_workspace_symbols)
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ["<Down>"] = require('telescope.actions').cycle_history_next,
+        ["<Up>"] = require('telescope.actions').cycle_history_prev,
+      }
+    }
+  }
+}
 
 vim.keymap.set('n', 'ss', '<Plug>Sneak_s')
 vim.keymap.set('n', 'SS', '<Plug>Sneak_S')
