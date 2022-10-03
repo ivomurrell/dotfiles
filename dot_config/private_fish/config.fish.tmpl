@@ -1,7 +1,9 @@
-# Set up the starship prompt
-starship init fish | source
-# Set up the zoxide cd/z alternative
-zoxide init fish | source
+if status is-interactive
+  # Set up the starship prompt
+  starship init fish | source
+  # Set up the zoxide cd/z alternative
+  zoxide init fish | source
+end
 
 {{- if eq .chezmoi.arch "arm64" }}
 # Add Apple Silicon homebrew prefix to PATH
