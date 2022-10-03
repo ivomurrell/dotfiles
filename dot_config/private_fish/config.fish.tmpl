@@ -15,6 +15,8 @@ fish_add_path ~/.emacs.d/bin
 fish_add_path ~/.cargo/bin
 # Add misc local symlinks to PATH
 fish_add_path ~/bin
+# Add go packages to PATH
+fish_add_path (go env GOPATH)/bin
 
 # Set the personal access token to use for authentication with Vault.
 # set -gx VAULT_AUTH_GITHUB_TOKEN (security find-generic-password -a "$USER" -s "FT Vault" -w)
@@ -32,7 +34,7 @@ complete --command aws --no-files --arguments '(begin; set --local --export COMP
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish ; or true
 
 set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH
+fish_add_path "$VOLTA_HOME/bin"
 
 set -gx EDITOR nvim
 
