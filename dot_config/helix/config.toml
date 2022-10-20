@@ -1,0 +1,17 @@
+theme = "tokyonight_storm"
+
+[editor]
+cursorline = true
+rulers = [100]
+color-modes = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.lsp]
+display-messages = true
+
+[editor.file-picker]
+hidden = false
