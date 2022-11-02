@@ -9,6 +9,8 @@ end
 # Add Apple Silicon homebrew prefix to PATH
 fish_add_path /opt/homebrew/bin
 {{- end }}
+# Disable homebrew environment hint messages
+set -gx HOMEBREW_NO_ENV_HINTS 1
 # Add emacs binaries to PATH such as Doom utilities
 fish_add_path ~/.emacs.d/bin
 # Add cargo global packages to PATH
