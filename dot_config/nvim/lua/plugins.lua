@@ -46,8 +46,13 @@ require('packer').startup(function(use)
   use 'machakann/vim-highlightedyank' -- Highlight line when yanking
   use 'machakann/vim-sandwich' -- Add surroundings to text objects
   use 'justinmk/vim-sneak' -- Jump to location with two characters
-  use 'jiangmiao/auto-pairs' -- Insert closing characters for pairs
   use 'tommcdo/vim-lion' -- Aligning text
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require("nvim-autopairs").setup {}
+    end
+  } -- Insert closing characters for pairs
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
