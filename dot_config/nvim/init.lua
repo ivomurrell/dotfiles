@@ -125,6 +125,10 @@ require('lspconfig').sumneko_lua.setup({
     },
   },
 })
+require('lspconfig').r_language_server.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 require('lspconfig').eslint.setup {
   capabilities = capabilities
 }
