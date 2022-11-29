@@ -7,6 +7,8 @@ vim.opt.number = true
 vim.opt.signcolumn = 'yes'
 vim.opt.undofile = true
 vim.opt.termguicolors = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 vim.cmd [[colorscheme tokyonight]]
 
 -- Mappings.
