@@ -4,6 +4,8 @@ require('plugins')
 vim.opt.mouse = 'a'
 vim.opt.updatetime = 100
 vim.opt.number = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.signcolumn = 'yes'
 vim.opt.undofile = true
 vim.opt.termguicolors = true
