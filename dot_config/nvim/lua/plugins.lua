@@ -95,6 +95,7 @@ require('packer').startup(function(use)
       require('bufferline').setup {}
     end
   } -- Tabs in a buffer line
+  use {'ojroques/nvim-bufdel'} -- Don't close window when deleting buffers
   use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
