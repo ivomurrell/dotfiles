@@ -153,6 +153,7 @@ require('gitsigns').setup {
       return '<Ignore>'
     end, { buffer = bufnr, expr = true })
 
+    vim.keymap.set({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
     vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk)
     vim.keymap.set('n', '<leader>tb', require('gitsigns').toggle_current_line_blame)
 
