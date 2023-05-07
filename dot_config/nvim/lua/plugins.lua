@@ -42,8 +42,8 @@ require('packer').startup(function(use)
   use 'tpope/vim-commentary' -- Comment out lines
   use 'tpope/vim-sleuth' -- Detect indentation
   use 'tpope/vim-unimpaired' -- [ and ] shortcuts
-  use 'tpope/vim-fugitive' -- Git plugin
-  use 'tpope/vim-rhubarb' -- GitHub support for fugitive.vim
+  use { 'tpope/vim-fugitive', disable = true } -- Git plugin
+  use { 'tpope/vim-rhubarb', disable = true } -- GitHub support for fugitive.vim
   use 'machakann/vim-highlightedyank' -- Highlight line when yanking
   use 'machakann/vim-sandwich' -- Add surroundings to text objects
   use 'justinmk/vim-sneak' -- Jump to location with two characters
@@ -123,7 +123,6 @@ require('packer').startup(function(use)
   } -- Use fzf for searching with telescope
   use {
     'TimUntersberger/neogit',
-    disable = true,
     requires = 'nvim-lua/plenary.nvim',
     config = function()
       require('neogit').setup {}
