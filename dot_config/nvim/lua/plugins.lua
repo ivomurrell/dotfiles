@@ -1,7 +1,7 @@
 require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim' -- Package manager
+  use 'wbthomason/packer.nvim'                        -- Package manager
   use { 'lewis6991/impatient.nvim', disable = false } -- Implements caching to speed up startup
-  use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
+  use 'neovim/nvim-lspconfig'                         -- Collection of configurations for the built-in LSP client
   use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
@@ -49,19 +49,19 @@ require('packer').startup(function(use)
         }
       }
     end
-  } -- Better/faster syntax highlighting with treesitter
+  }                                                 -- Better/faster syntax highlighting with treesitter
   use 'nvim-treesitter/nvim-treesitter-textobjects' -- Add treesitter groups as textobjects
-  use 'andymass/vim-matchup' -- Improve %-jumping with treesitter integration
-  use 'folke/tokyonight.nvim' -- Colour scheme that supports other plugins
-  use 'tpope/vim-commentary' -- Comment out lines
-  use 'tpope/vim-sleuth' -- Detect indentation
-  use 'tpope/vim-unimpaired' -- [ and ] shortcuts
-  use { 'tpope/vim-fugitive', disable = true } -- Git plugin
-  use { 'tpope/vim-rhubarb', disable = true } -- GitHub support for fugitive.vim
-  use 'machakann/vim-highlightedyank' -- Highlight line when yanking
-  use 'machakann/vim-sandwich' -- Add surroundings to text objects
-  use 'justinmk/vim-sneak' -- Jump to location with two characters
-  use 'tommcdo/vim-lion' -- Aligning text
+  use 'andymass/vim-matchup'                        -- Improve %-jumping with treesitter integration
+  use 'folke/tokyonight.nvim'                       -- Colour scheme that supports other plugins
+  use 'tpope/vim-commentary'                        -- Comment out lines
+  use 'tpope/vim-sleuth'                            -- Detect indentation
+  use 'tpope/vim-unimpaired'                        -- [ and ] shortcuts
+  use { 'tpope/vim-fugitive', disable = true }      -- Git plugin
+  use { 'tpope/vim-rhubarb', disable = true }       -- GitHub support for fugitive.vim
+  use 'machakann/vim-highlightedyank'               -- Highlight line when yanking
+  use 'machakann/vim-sandwich'                      -- Add surroundings to text objects
+  use 'justinmk/vim-sneak'                          -- Jump to location with two characters
+  use 'tommcdo/vim-lion'                            -- Aligning text
   use {
     'windwp/nvim-autopairs',
     config = function()
@@ -91,7 +91,7 @@ require('packer').startup(function(use)
         extensions = { 'fugitive', 'nvim-tree' }
       }
     end
-  } -- Customisable status line
+  }                             -- Customisable status line
   use 'lewis6991/gitsigns.nvim' -- Pretty git gutter and in-line blame
   use {
     'kyazdani42/nvim-tree.lua',
@@ -115,16 +115,16 @@ require('packer').startup(function(use)
     config = function()
       require('bufferline').setup {}
     end
-  } -- Tabs in a buffer line
-  use {'ojroques/nvim-bufdel'} -- Don't close window when deleting buffers
+  }                              -- Tabs in a buffer line
+  use { 'ojroques/nvim-bufdel' } -- Don't close window when deleting buffers
   use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('trouble').setup {}
     end
-  } -- List diagnositic errors
-  use { 'mfussenegger/nvim-dap', disable = true } -- Debugging tooling
+  }                                                                                      -- List diagnositic errors
+  use { 'mfussenegger/nvim-dap', disable = true }                                        -- Debugging tooling
   use { 'rcarriga/nvim-dap-ui', disable = true, requires = { 'mfussenegger/nvim-dap' } } -- UI for debugging
   use {
     'nvim-telescope/telescope.nvim',
@@ -152,8 +152,8 @@ require('packer').startup(function(use)
       for _, ft in pairs(prettier_files) do
         prettier_config[ft] = { require('formatter.filetypes.' .. ft).prettier }
       end
-      local rust_fmt =  require('formatter.filetypes.rust').rustfmt()
-      rust_fmt.args ={ "--edition=2021"}
+      local rust_fmt = require('formatter.filetypes.rust').rustfmt()
+      rust_fmt.args = { "--edition=2021" }
       prettier_config['rust'] = { function()
         return rust_fmt
       end }
@@ -165,12 +165,12 @@ require('packer').startup(function(use)
   use {
     'hrsh7th/nvim-cmp',
     requires = {
-      'hrsh7th/cmp-nvim-lsp', -- Use LSP for autocompletion
-      'L3MON4D3/LuaSnip', -- Snippet engine
+      'hrsh7th/cmp-nvim-lsp',                -- Use LSP for autocompletion
+      'L3MON4D3/LuaSnip',                    -- Snippet engine
       'hrsh7th/cmp-nvim-lsp-signature-help', -- View function signature when filling parameters
-      'hrsh7th/cmp-buffer', -- Autocompletion for strings in buffer
-      'hrsh7th/cmp-path', -- Autocompletion for file paths
-      'hrsh7th/cmp-cmdline', -- Autocompletion for vim's cmdline
+      'hrsh7th/cmp-buffer',                  -- Autocompletion for strings in buffer
+      'hrsh7th/cmp-path',                    -- Autocompletion for file paths
+      'hrsh7th/cmp-cmdline',                 -- Autocompletion for vim's cmdline
       {
         'David-Kunz/cmp-npm',
         requires = {
@@ -222,7 +222,10 @@ require('packer').startup(function(use)
             { name = 'nvim_lsp_signature_help' },
             { name = 'buffer' },
             { name = 'path' },
-            { name = 'npm', keyword_length = 4 }
+            {
+              name = 'npm',
+              keyword_length = 4
+            }
           })
         })
         cmp.setup.cmdline('/', {
@@ -241,7 +244,7 @@ require('packer').startup(function(use)
         })
       end
     end
-  } -- Code autocompletion
-  use 'stevearc/dressing.nvim' -- Make input windows nicer
+  }                             -- Code autocompletion
+  use 'stevearc/dressing.nvim'  -- Make input windows nicer
   use 'smerrill/vcl-vim-plugin' -- VCL syntax support
 end)
