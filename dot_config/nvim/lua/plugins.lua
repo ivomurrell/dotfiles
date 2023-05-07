@@ -3,6 +3,20 @@ require('packer').startup(function(use)
   use { 'lewis6991/impatient.nvim', disable = false } -- Implements caching to speed up startup
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
   use {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local null_ls = require("null-ls")
+      null_ls.setup {
+        sources = {
+          null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.diagnostics.cfn_lint,
+          null_ls.builtins.formatting.prettier
+        }
+      }
+    end
+  } -- add LSP support for non-LSP tools
+  use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
@@ -130,6 +144,7 @@ require('packer').startup(function(use)
   } -- Magit clone for Neovim
   use {
     'mhartington/formatter.nvim',
+    disable = true,
     ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'rust' },
     config = function()
       local prettier_files = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
