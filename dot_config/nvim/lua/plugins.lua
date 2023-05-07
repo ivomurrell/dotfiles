@@ -41,6 +41,7 @@ require('packer').startup(function(use)
   use 'folke/tokyonight.nvim' -- Colour scheme that supports other plugins
   use 'tpope/vim-commentary' -- Comment out lines
   use 'tpope/vim-sleuth' -- Detect indentation
+  use 'tpope/vim-unimpaired' -- [ and ] shortcuts
   use 'tpope/vim-fugitive' -- Git plugin
   use 'tpope/vim-rhubarb' -- GitHub support for fugitive.vim
   use 'machakann/vim-highlightedyank' -- Highlight line when yanking
