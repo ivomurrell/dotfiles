@@ -1,4 +1,5 @@
-require('impatient')
+vim.loader.enable()
+
 require('plugins')
 
 vim.opt.mouse = 'a'

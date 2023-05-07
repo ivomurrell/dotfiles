@@ -1,6 +1,6 @@
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim' -- Package manager
-  use 'lewis6991/impatient.nvim' -- Implements caching to speed up startup
+  use { 'lewis6991/impatient.nvim', disable = false } -- Implements caching to speed up startup
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
   use {
     'nvim-treesitter/nvim-treesitter',
