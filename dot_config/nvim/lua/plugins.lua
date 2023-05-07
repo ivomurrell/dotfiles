@@ -54,6 +54,12 @@ require('packer').startup(function(use)
     end
   } -- Insert closing characters for pairs
   use {
+    'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('nvim-web-devicons').setup {}
+    end
+  }
+  use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
