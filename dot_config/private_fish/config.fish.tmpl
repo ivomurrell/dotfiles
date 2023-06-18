@@ -41,3 +41,5 @@ fish_add_path "$VOLTA_HOME/bin"
 set -gx EDITOR nvim
 
 set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
+
+set -gx FZF_DEFAULT_COMMAND "fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
