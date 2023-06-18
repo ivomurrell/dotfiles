@@ -1,7 +1,7 @@
 require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'                        -- Package manager
-  use { 'lewis6991/impatient.nvim', disable = false } -- Implements caching to speed up startup
-  use 'neovim/nvim-lspconfig'                         -- Collection of configurations for the built-in LSP client
+  use 'wbthomason/packer.nvim'                       -- Package manager
+  use { 'lewis6991/impatient.nvim', disable = true } -- Implements caching to speed up startup
+  use 'neovim/nvim-lspconfig'                        -- Collection of configurations for the built-in LSP client
   use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
