@@ -62,6 +62,7 @@ require('packer').startup(function(use)
   use 'machakann/vim-sandwich'                      -- Add surroundings to text objects
   use 'justinmk/vim-sneak'                          -- Jump to location with two characters
   use 'tommcdo/vim-lion'                            -- Aligning text
+  use 'romainl/vim-cool'                            -- Disables search highlighting once I'm done
   use {
     'windwp/nvim-autopairs',
     config = function()
@@ -110,7 +111,7 @@ require('packer').startup(function(use)
   } -- Graphical file explorer
   use {
     'akinsho/bufferline.nvim',
-    tag = "v2.*",
+    tag = "v4.*",
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('bufferline').setup {}
