@@ -248,4 +248,6 @@ require('packer').startup(function(use)
   }                             -- Code autocompletion
   use 'stevearc/dressing.nvim'  -- Make input windows nicer
   use 'smerrill/vcl-vim-plugin' -- VCL syntax support
+  use 'imsnif/kdl.vim'          -- KDL syntax support
+  use 'hjson/vim-hjson'         -- HJSON syntax support
 end)
