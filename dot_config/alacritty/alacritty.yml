@@ -12,10 +12,8 @@ scrolling:
 
 font:
   normal:
-    family: FantasqueSansMono Nerd Font
+    family: JetBrainsMono Nerd Font
   size: 13.0
-  offset:
-    x: 1
 
 colors:
   # Default colors
