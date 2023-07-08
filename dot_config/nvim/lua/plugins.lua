@@ -48,6 +48,8 @@ require('packer').startup(function(use)
               ["ic"] = "@class.inner",
               ["ia"] = "@parameter.inner",
               ["aa"] = "@parameter.outer",
+              ["i/"] = "@regex.inner",
+              ["a/"] = "@regex.outer",
             },
           }
         },
