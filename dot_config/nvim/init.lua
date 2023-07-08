@@ -13,6 +13,8 @@ vim.opt.undofile = true
 vim.opt.termguicolors = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 vim.cmd [[colorscheme tokyonight]]
 
 vim.api.nvim_create_augroup('numbertoggle', { clear = true })
