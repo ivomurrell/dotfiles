@@ -17,6 +17,13 @@ require('packer').startup(function(use)
     end
   } -- add LSP support for non-LSP tools
   use {
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+    config = function()
+      require('fidget').setup {}
+    end
+  } -- show LSP loading progress
+  use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
