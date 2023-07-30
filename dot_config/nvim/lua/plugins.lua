@@ -70,6 +70,7 @@ require('packer').startup(function(use)
   use 'machakann/vim-highlightedyank'               -- Highlight line when yanking
   use 'machakann/vim-sandwich'                      -- Add surroundings to text objects
   use 'justinmk/vim-sneak'                          -- Jump to location with two characters
+  use 'chrisgrieser/nvim-spider'                    -- Respect CamelCase with word motions
   use 'tommcdo/vim-lion'                            -- Aligning text
   use 'romainl/vim-cool'                            -- Disables search highlighting once I'm done
   use {
