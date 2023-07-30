@@ -20,6 +20,15 @@ fish_add_path ~/bin
 # Add go packages to PATH
 fish_add_path (go env GOPATH)/bin
 
+# Add abbreviations
+abbr -a gsc git switch -c
+abbr -a gsh git show
+abbr -a gs git status
+abbr -a gl git log
+abbr -a gsw git switch
+abbr -a gd git diff
+abbr -a ns npm start
+
 # Set the personal access token to use for authentication with Vault.
 # set -gx VAULT_AUTH_GITHUB_TOKEN (security find-generic-password -a "$USER" -s "FT Vault" -w)
 
