@@ -160,6 +160,11 @@ require('lspconfig').r_language_server.setup({
 require('lspconfig').eslint.setup {
   capabilities = capabilities
 }
+require('lspconfig').ccls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  offset_encoding = 'utf-16'
+})
 local null_ls = require('null-ls')
 null_ls.setup {
   on_attach = on_attach,

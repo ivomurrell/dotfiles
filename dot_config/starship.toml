@@ -6,7 +6,7 @@ command_timeout = 1000
 
 [battery]
 disabled = false
-format = "[$symbol $percentage]($style)"
+# format = "[$symbol $percentage]($style)"
 
 [[battery.display]]
 threshold = 20
@@ -23,6 +23,7 @@ style = "bold yellow"
 [cmd_duration]
 show_notifications = true
 min_time_to_notify = 10_000
+notification_timeout = 3_500
 
 # [directory]
 # style = "blue"
