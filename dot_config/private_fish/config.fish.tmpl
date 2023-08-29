@@ -1,6 +1,14 @@
 if status is-interactive
   # Set up the starship prompt
+  function starship_transient_prompt_func
+    starship module character
+  end
+  function starship_transient_rprompt_func
+    starship module time
+  end
   starship init fish | source
+  enable_transience
+
   # Set up the zoxide cd/z alternative
   zoxide init fish | source
 end
