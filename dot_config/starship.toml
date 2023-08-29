@@ -1,5 +1,6 @@
 # add_newline = false
 command_timeout = 1000
+right_format = "$time"
 
 # [aws]
 # format = '(on [$symbol$profile]($style) )'
@@ -43,3 +44,6 @@ disabled = true
 
 # [python]
 # format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[time]
+disabled = false
