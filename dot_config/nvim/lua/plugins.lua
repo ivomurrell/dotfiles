@@ -1,21 +1,27 @@
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'                       -- Package manager
-  use { 'lewis6991/impatient.nvim', disable = true } -- Implements caching to speed up startup
-  use 'neovim/nvim-lspconfig'                        -- Collection of configurations for the built-in LSP client
-  use {
+return {
+  'folke/lazy.nvim',                               -- Package manager
+  { 'lewis6991/impatient.nvim', enabled = false }, -- Implements caching to speed up startup
+  {
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime",
+    init = function()
+      vim.g.startuptime_tries = 10
+    end,
+  },
+  'neovim/nvim-lspconfig', -- Collection of configurations for the built-in LSP client
+  {
     'jose-elias-alvarez/null-ls.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-  } -- add LSP support for non-LSP tools
-  use {
+    enabled = false,
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  }, -- add LSP support for non-LSP tools
+  {
     'j-hui/fidget.nvim',
     tag = 'legacy',
-    config = function()
-      require('fidget').setup {}
-    end
-  } -- show LSP loading progress
-  use {
+    config = true,
+  }, -- show LSP loading progress
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+    build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = { "typescript", "javascript", "lua", "rust" },
@@ -48,36 +54,26 @@ require('packer').startup(function(use)
         }
       }
     end
-  }                                                 -- Better/faster syntax highlighting with treesitter
-  use 'nvim-treesitter/nvim-treesitter-textobjects' -- Add treesitter groups as textobjects
-  use 'andymass/vim-matchup'                        -- Improve %-jumping with treesitter integration
-  use 'folke/tokyonight.nvim'                       -- Colour scheme that supports other plugins
-  use 'tpope/vim-commentary'                        -- Comment out lines
-  use 'tpope/vim-sleuth'                            -- Detect indentation
-  use 'tpope/vim-unimpaired'                        -- [ and ] shortcuts
-  use 'tpope/vim-fugitive'                          -- Git plugin
-  use { 'tpope/vim-rhubarb', disable = true }       -- GitHub support for fugitive.vim
-  use 'machakann/vim-highlightedyank'               -- Highlight line when yanking
-  use 'machakann/vim-sandwich'                      -- Add surroundings to text objects
-  use 'justinmk/vim-sneak'                          -- Jump to location with two characters
-  use 'chrisgrieser/nvim-spider'                    -- Respect CamelCase with word motions
-  use 'tommcdo/vim-lion'                            -- Aligning text
-  use 'romainl/vim-cool'                            -- Disables search highlighting once I'm done
-  use {
-    'windwp/nvim-autopairs',
-    config = function()
-      require("nvim-autopairs").setup {}
-    end
-  } -- Insert closing characters for pairs
-  use {
-    'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('nvim-web-devicons').setup {}
-    end
-  }
-  use {
+  },                                                 -- Better/faster syntax highlighting with treesitter
+  'nvim-treesitter/nvim-treesitter-textobjects',     -- Add treesitter groups as textobjects
+  'andymass/vim-matchup',                            -- Improve %-jumping with treesitter integration
+  'folke/tokyonight.nvim',                           -- Colour scheme that supports other plugins
+  'tpope/vim-commentary',                            -- Comment out lines
+  'tpope/vim-sleuth',                                -- Detect indentation
+  'tpope/vim-unimpaired',                            -- [ and ] shortcuts
+  'tpope/vim-fugitive',                              -- Git plugin
+  { 'tpope/vim-rhubarb',        enabled = false },   -- GitHub support for fugitive.vim
+  'machakann/vim-highlightedyank',                   -- Highlight line when yanking
+  'machakann/vim-sandwich',                          -- Add surroundings to text objects
+  'justinmk/vim-sneak',                              -- Jump to location with two characters
+  'chrisgrieser/nvim-spider',                        -- Respect CamelCase with word motions
+  'tommcdo/vim-lion',                                -- Aligning text
+  'romainl/vim-cool',                                -- Disables search highlighting once I'm done
+  { 'windwp/nvim-autopairs',        config = true }, -- Insert closing characters for pairs
+  { 'kyazdani42/nvim-web-devicons', lazy = true,  config = true },
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function()
       local function indentation()
         local indent_type = vim.opt.expandtab:get() and 'spaces' or 'tabs'
@@ -92,61 +88,46 @@ require('packer').startup(function(use)
         extensions = { 'fugitive', 'nvim-tree' }
       }
     end
-  }                             -- Customisable status line
-  use 'lewis6991/gitsigns.nvim' -- Pretty git gutter and in-line blame
-  use {
+  },                         -- Customisable status line
+  'lewis6991/gitsigns.nvim', -- Pretty git gutter and in-line blame
+  {
     'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    tag = 'nightly',
-    -- keys = { '<C-n>', '<leader>n' },
-    config = function()
-      require('nvim-tree').setup {
-        actions = {
-          open_file = {
-            quit_on_open = true
-          }
-        }
-      }
-    end
-  } -- Graphical file explorer
-  use {
+    dependencies = 'kyazdani42/nvim-web-devicons',
+    cmd = { 'NvimTreeToggle', 'NvimTreeFindFile' },
+    opts = { actions = { open_file = { quit_on_open = true } } }
+  }, -- Graphical file explorer
+  {
     'akinsho/bufferline.nvim',
-    tag = "v4.*",
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('bufferline').setup {}
-    end
-  }                              -- Tabs in a buffer line
-  use { 'ojroques/nvim-bufdel' } -- Don't close window when deleting buffers
-  use {
+    version = "*",
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    config = true
+  },                          -- Tabs in a buffer line
+  { 'ojroques/nvim-bufdel' }, -- Don't close window when deleting buffers
+  {
     'folke/trouble.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('trouble').setup {}
-    end
-  }                                                                                      -- List diagnositic errors
-  use { 'mfussenegger/nvim-dap', disable = true }                                        -- Debugging tooling
-  use { 'rcarriga/nvim-dap-ui', disable = true, requires = { 'mfussenegger/nvim-dap' } } -- UI for debugging
-  use {
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    config = true
+  },                                                                                        -- List diagnositic errors
+  { 'mfussenegger/nvim-dap', enabled = false },                                             -- Debugging tooling
+  { 'rcarriga/nvim-dap-ui',  enabled = false, dependencies = { 'mfussenegger/nvim-dap' } }, -- UI for debugging
+  {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
-    requires = { 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons' },
-  } -- Fuzzy search for various lists such as project files
-  use {
+    dependencies = { 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons' },
+  }, -- Fuzzy search for various lists such as project files
+  {
     'nvim-telescope/telescope-fzf-native.nvim',
-    run = 'make'
-  } -- Use fzf for searching with telescope
-  use {
+    build = 'make'
+  }, -- Use fzf for searching with telescope
+  {
     'TimUntersberger/neogit',
-    disable = true,
-    requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('neogit').setup {}
-    end
-  } -- Magit clone for Neovim
-  use {
+    enabled = false,
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = true
+  }, -- Magit clone for Neovim
+  {
     'mhartington/formatter.nvim',
-    disable = true,
+    enabled = false,
     ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'rust' },
     config = function()
       local prettier_files = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
@@ -155,7 +136,7 @@ require('packer').startup(function(use)
         prettier_config[ft] = { require('formatter.filetypes.' .. ft).prettier }
       end
       local rust_fmt = require('formatter.filetypes.rust').rustfmt()
-      rust_fmt.args = { "--edition=2021" }
+      rust_fmt.args = { ",--edition=2021" }
       prettier_config['rust'] = { function()
         return rust_fmt
       end }
@@ -163,10 +144,11 @@ require('packer').startup(function(use)
         filetype = prettier_config
       }
     end
-  } -- Format source files
-  use {
+  }, -- Format source files
+  {
     'hrsh7th/nvim-cmp',
-    requires = {
+    event = "InsertEnter",
+    dependencies = {
       'hrsh7th/cmp-nvim-lsp',                -- Use LSP for autocompletion
       'L3MON4D3/LuaSnip',                    -- Snippet engine
       'hrsh7th/cmp-nvim-lsp-signature-help', -- View function signature when filling parameters
@@ -175,10 +157,10 @@ require('packer').startup(function(use)
       'hrsh7th/cmp-cmdline',                 -- Autocompletion for vim's cmdline
       {
         'David-Kunz/cmp-npm',
-        requires = {
+        dependencies = {
           'nvim-lua/plenary.nvim'
         }
-      } -- Autocompletion for npm packages
+      }, -- Autocompletion for npm packages
     },
     config = function()
       local has_words_before = function()
@@ -246,9 +228,9 @@ require('packer').startup(function(use)
         })
       end
     end
-  }                             -- Code autocompletion
-  use 'stevearc/dressing.nvim'  -- Make input windows nicer
-  use 'smerrill/vcl-vim-plugin' -- VCL syntax support
-  use 'imsnif/kdl.vim'          -- KDL syntax support
-  use 'hjson/vim-hjson'         -- HJSON syntax support
-end)
+  },                         -- Code autocompletion
+  'stevearc/dressing.nvim',  -- Make input windows nicer
+  'smerrill/vcl-vim-plugin', -- VCL syntax support
+  'imsnif/kdl.vim',          -- KDL syntax support
+  'hjson/vim-hjson',         -- HJSON syntax support
+}

@@ -1,6 +1,7 @@
 vim.loader.enable()
 
-require('plugins')
+vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
+require('lazy').setup('plugins')
 
 vim.opt.mouse = 'a'
 vim.opt.updatetime = 100
