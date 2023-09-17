@@ -116,7 +116,17 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('lspconfig').tsserver.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+  root_dir = require('lspconfig').util.find_package_json_ancestor,
+  single_file_support = false
 })
+require('lspconfig').denols.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = require('lspconfig').util.root_pattern("deno.json", "deno.jsonc"),
+})
+vim.g.markdown_fenced_lanuages = {
+  "ts=typescript"
+}
 require('lspconfig').rust_analyzer.setup({
   on_attach = on_attach,
   capabilities = capabilities,
