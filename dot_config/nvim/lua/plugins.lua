@@ -8,7 +8,6 @@ return {
       vim.g.startuptime_tries = 10
     end,
   },
-  'neovim/nvim-lspconfig', -- Collection of configurations for the built-in LSP client
   {
     'jose-elias-alvarez/null-ls.nvim',
     enabled = false,
@@ -88,8 +87,35 @@ return {
         extensions = { 'fugitive', 'nvim-tree' }
       }
     end
-  },                         -- Customisable status line
-  'lewis6991/gitsigns.nvim', -- Pretty git gutter and in-line blame
+  }, -- Customisable status line
+  {
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      current_line_blame = false,
+      current_line_blame_opts = {
+        virt_text_pos = 'right_align',
+        delay = 400
+      },
+      on_attach = function(bufnr)
+        vim.keymap.set('n', ']c', function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(function() require('gitsigns').next_hunk() end)
+          return '<Ignore>'
+        end, { buffer = bufnr, expr = true })
+        vim.keymap.set('n', '[c', function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(function() require('gitsigns').prev_hunk() end)
+          return '<Ignore>'
+        end, { buffer = bufnr, expr = true })
+
+        vim.keymap.set({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk)
+        vim.keymap.set('n', '<leader>tb', require('gitsigns').toggle_current_line_blame)
+
+        vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+      end
+    }
+  }, -- Pretty git gutter and in-line blame
   {
     'kyazdani42/nvim-tree.lua',
     dependencies = 'kyazdani42/nvim-web-devicons',
@@ -112,13 +138,30 @@ return {
   { 'rcarriga/nvim-dap-ui',  enabled = false, dependencies = { 'mfussenegger/nvim-dap' } }, -- UI for debugging
   {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
-    dependencies = { 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons' },
+    version = '^0.1.0',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'kyazdani42/nvim-web-devicons',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make'
+      }, -- Use fzf for searching with telescope
+    },
+    config = function()
+      local telescope = require('telescope')
+      telescope.load_extension('fzf')
+      telescope.setup({
+        defaults = {
+          mappings = {
+            i = {
+              ["<Down>"] = require('telescope.actions').cycle_history_next,
+              ["<Up>"] = require('telescope.actions').cycle_history_prev,
+            }
+          }
+        }
+      })
+    end
   }, -- Fuzzy search for various lists such as project files
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make'
-  }, -- Use fzf for searching with telescope
   {
     'TimUntersberger/neogit',
     enabled = false,
@@ -144,91 +187,7 @@ return {
         filetype = prettier_config
       }
     end
-  }, -- Format source files
-  {
-    'hrsh7th/nvim-cmp',
-    event = "InsertEnter",
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',                -- Use LSP for autocompletion
-      'L3MON4D3/LuaSnip',                    -- Snippet engine
-      'hrsh7th/cmp-nvim-lsp-signature-help', -- View function signature when filling parameters
-      'hrsh7th/cmp-buffer',                  -- Autocompletion for strings in buffer
-      'hrsh7th/cmp-path',                    -- Autocompletion for file paths
-      'hrsh7th/cmp-cmdline',                 -- Autocompletion for vim's cmdline
-      {
-        'David-Kunz/cmp-npm',
-        dependencies = {
-          'nvim-lua/plenary.nvim'
-        }
-      }, -- Autocompletion for npm packages
-    },
-    config = function()
-      local has_words_before = function()
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
-
-      if (cmp) then
-        cmp.setup({
-          snippet = {
-            expand = function(args)
-              luasnip.lsp_expand(args.body)
-            end
-          },
-          mapping = cmp.mapping.preset.insert({
-            ['<C-e>'] = cmp.mapping.abort(),
-            ['<CR>'] = cmp.mapping.confirm({ select = true }),
-            ["<Tab>"] = cmp.mapping(function(fallback)
-              if cmp.visible() then
-                cmp.select_next_item()
-              elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-              elseif has_words_before() then
-                cmp.complete()
-              else
-                fallback()
-              end
-            end, { "i", "s" }),
-            ["<S-Tab>"] = cmp.mapping(function(fallback)
-              if cmp.visible() then
-                cmp.select_prev_item()
-              elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-              else
-                fallback()
-              end
-            end, { "i", "s" }),
-          }),
-          sources = cmp.config.sources({
-            { name = 'nvim_lsp' },
-            { name = 'nvim_lsp_signature_help' },
-            { name = 'buffer' },
-            { name = 'path' },
-            {
-              name = 'npm',
-              keyword_length = 4
-            }
-          })
-        })
-        cmp.setup.cmdline('/', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = {
-            { name = 'buffer' }
-          }
-        })
-        cmp.setup.cmdline(':', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = cmp.config.sources({
-            { name = 'path' }
-          }, {
-            { name = 'cmdline' }
-          })
-        })
-      end
-    end
-  },                         -- Code autocompletion
+  },                         -- Format source files
   'stevearc/dressing.nvim',  -- Make input windows nicer
   'smerrill/vcl-vim-plugin', -- VCL syntax support
   'imsnif/kdl.vim',          -- KDL syntax support
