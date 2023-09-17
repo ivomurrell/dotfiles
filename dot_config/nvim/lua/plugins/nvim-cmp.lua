@@ -1,6 +1,6 @@
 return {
   'hrsh7th/nvim-cmp',
-  event = "InsertEnter",
+  event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',                -- Use LSP for autocompletion
     'L3MON4D3/LuaSnip',                    -- Snippet engine

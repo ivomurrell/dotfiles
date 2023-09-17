@@ -16,11 +16,17 @@ return {
 	{
 		'j-hui/fidget.nvim',
 		tag = 'legacy',
+		event = 'VeryLazy',
 		config = true,
 	}, -- show LSP loading progress
 	{
 		'nvim-treesitter/nvim-treesitter',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter-textobjects', -- Add treesitter groups as textobjects
+			'andymass/vim-matchup'
+		},
 		build = ':TSUpdate',
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require('nvim-treesitter.configs').setup {
 				ensure_installed = { "typescript", "javascript", "lua", "rust" },
@@ -53,9 +59,12 @@ return {
 				}
 			}
 		end
-	},                                              -- Better/faster syntax highlighting with treesitter
-	'nvim-treesitter/nvim-treesitter-textobjects',  -- Add treesitter groups as textobjects
-	'andymass/vim-matchup',                         -- Improve %-jumping with treesitter integration
+	}, -- Better/faster syntax highlighting with treesitter
+	{
+		'andymass/vim-matchup',
+		enabled = false,
+		event = { "BufReadPost", "BufNewFile" },
+	},                                              -- Improve %-jumping with treesitter integration
 	'folke/tokyonight.nvim',                        -- Colour scheme that supports other plugins
 	'tpope/vim-commentary',                         -- Comment out lines
 	'tpope/vim-sleuth',                             -- Detect indentation
@@ -85,14 +94,19 @@ return {
 			{ "b",  "<cmd>lua require('spider').motion('b')<CR>",  mode = { "n", "o", "x" }, { desc = "Spider-b" } },
 			{ "ge", "<cmd>lua require('spider').motion('ge')<CR>", mode = { "n", "o", "x" }, { desc = "Spider-ge" } },
 		},
-	},                                                -- Respect CamelCase with word motions
-	'tommcdo/vim-lion',                               -- Aligning text
-	'romainl/vim-cool',                               -- Disables search highlighting once I'm done
-	{ 'windwp/nvim-autopairs',        config = true }, -- Insert closing characters for pairs
-	{ 'kyazdani42/nvim-web-devicons', lazy = true,  config = true },
+	},                 -- Respect CamelCase with word motions
+	'tommcdo/vim-lion', -- Aligning text
+	'romainl/vim-cool', -- Disables search highlighting once I'm done
+	{
+		'windwp/nvim-autopairs',
+		event = 'InsertEnter',
+		config = true
+	}, -- Insert closing characters for pairs
+	{ 'kyazdani42/nvim-web-devicons', lazy = true, config = true },
 	{
 		'nvim-lualine/lualine.nvim',
 		dependencies = { 'kyazdani42/nvim-web-devicons' },
+		event = "VeryLazy",
 		config = function()
 			local function indentation()
 				local indent_type = vim.opt.expandtab:get() and 'spaces' or 'tabs'
@@ -150,6 +164,7 @@ return {
 		'akinsho/bufferline.nvim',
 		version = "*",
 		dependencies = { 'kyazdani42/nvim-web-devicons' },
+		event = "VeryLazy",
 		config = true
 	},                         -- Tabs in a buffer line
 	{ 'ojroques/nvim-bufdel' }, -- Don't close window when deleting buffers
@@ -229,9 +244,9 @@ return {
 				filetype = prettier_config
 			}
 		end
-	},                        -- Format source files
-	'stevearc/dressing.nvim', -- Make input windows nicer
-	'smerrill/vcl-vim-plugin', -- VCL syntax support
-	'imsnif/kdl.vim',         -- KDL syntax support
-	'hjson/vim-hjson',        -- HJSON syntax support
+	},                                          -- Format source files
+	'stevearc/dressing.nvim',                   -- Make input windows nicer
+	{ 'smerrill/vcl-vim-plugin', ft = 'vcl' },  -- VCL syntax support
+	{ 'imsnif/kdl.vim',          ft = 'kdl' },  -- KDL syntax support
+	{ 'hjson/vim-hjson',         ft = 'hjson' }, -- HJSON syntax support
 }
