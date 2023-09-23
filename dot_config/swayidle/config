@@ -1,0 +1,5 @@
+timeout 30 'light -Os "sysfs/leds/kbd_backlight" && light -Ss "sysfs/leds/kbd_backlight" 0' resume 'light -Is "sysfs/leds/kbd_backlight"'
+timeout 120 'light -O && light -S 1' resume 'light -I'
+timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+timeout 600 'swaylock -f -c 000000'
+before-sleep 'swaylock -f -c 000000'
