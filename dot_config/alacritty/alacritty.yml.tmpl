@@ -3,6 +3,9 @@ window:
     x: 4
     y: 4
   resize_increments: true
+  {{- if eq .chezmoi.os "linux" }}
+  opacity: 0.95
+  {{- end }}
 
 # env:
 #   TERM: xterm-256color
@@ -13,7 +16,12 @@ scrolling:
 font:
   normal:
     family: JetBrainsMono Nerd Font
+  {{- /* alacritty handles font scaling differently between OSes */ -}}
+  {{- if eq .chezmoi.os "darwin" }}
   size: 13.0
+  {{- else }}
+  size: 10.0
+  {{- end }}
 
 colors:
   # Default colors
