@@ -37,8 +37,8 @@ notification_timeout = 3_500
 format = '([\[$conflicted$deleted$renamed$modified$staged$untracked$ahead_behind\]]($style) )'
 # style = "bright-black"
 
-# [nodejs]
-# disabled = true
+[nodejs]
+detect_extensions = []
 
 [package]
 disabled = true
