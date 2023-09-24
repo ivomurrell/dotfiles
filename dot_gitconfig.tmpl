@@ -1,6 +1,6 @@
 [core]
 	excludesFile = ~/.gitignore
-	pager = less -+X
+	pager = delta
 	editor = nvim
 [user]
 	name = Ivo Murrell
@@ -25,10 +25,6 @@
 [help]
 	autoCorrect = 15
 [pager]
-	diff = delta
-	log = delta
-	reflog = delta
-	show = delta
 	difftool = true
 [interactive]
 	diffFilter = delta --color-only --features=interactive
@@ -41,7 +37,7 @@
 
 [delta]
 	features = mantis-shrimp
-	pager = less -+X -R
+	pager = less -R --mouse
 [delta "mantis-shrimp"]
     #author: https://github.com/2kabhishek
 	dark = true
