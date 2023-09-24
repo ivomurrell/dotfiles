@@ -40,7 +40,7 @@
     # (you really should read https://dystroy.org/broot/modal/
     # before as it may not suit everybody even among vim users)
     #
-    # modal: true
+    modal: true
 
     ###############################################################
     # Whether to mark the selected line with a triangle
@@ -100,7 +100,7 @@
     # to cancel (for example when you just opened broot), uncomment
     # this parameter
     # 
-    # quit_on_last_cancel: true
+    quit_on_last_cancel: true
 
     ###############################################################
     # Search modes
@@ -253,6 +253,14 @@
     #     external: "mv {file} {other-panel-directory}"
     #     leave_broot: false
     # }
+    {
+        key: alt-right
+        internal: ":panel_right"
+    }
+    {
+        key: alt-left
+        internal: ":panel_left"
+    }
     ]
 
     ###############################################################
