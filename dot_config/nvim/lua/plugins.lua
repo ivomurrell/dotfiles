@@ -25,8 +25,8 @@ return {
 			'nvim-treesitter/nvim-treesitter-textobjects', -- Add treesitter groups as textobjects
 			'andymass/vim-matchup'
 		},
+		lazy = true,
 		build = ':TSUpdate',
-		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require('nvim-treesitter.configs').setup {
 				ensure_installed = { "typescript", "javascript", "lua", "rust" },
@@ -60,6 +60,14 @@ return {
 			}
 		end
 	}, -- Better/faster syntax highlighting with treesitter
+	{
+		'nvim-treesitter/nvim-treesitter-context',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter'
+		},
+		event = { "BufReadPost", "BufNewFile" },
+		config = true
+	}, -- Show surrounding functions when occluded
 	{
 		'andymass/vim-matchup',
 		enabled = false,
