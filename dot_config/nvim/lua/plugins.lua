@@ -1,6 +1,6 @@
 return {
-	'folke/lazy.nvim',                              -- Package manager
-	{ 'lewis6991/impatient.nvim', enabled = false }, -- Implements caching to speed up startup
+	'folke/lazy.nvim',                                  -- Package manager
+	{ 'lewis6991/impatient.nvim',     enabled = false }, -- Implements caching to speed up startup
 	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
@@ -64,15 +64,15 @@ return {
 		'andymass/vim-matchup',
 		enabled = false,
 		event = { "BufReadPost", "BufNewFile" },
-	},                                              -- Improve %-jumping with treesitter integration
-	'folke/tokyonight.nvim',                        -- Colour scheme that supports other plugins
-	'tpope/vim-commentary',                         -- Comment out lines
-	'tpope/vim-sleuth',                             -- Detect indentation
-	'tpope/vim-unimpaired',                         -- [ and ] shortcuts
-	'tpope/vim-fugitive',                           -- Git plugin
-	{ 'tpope/vim-rhubarb',        enabled = false }, -- GitHub support for fugitive.vim
-	'machakann/vim-highlightedyank',                -- Highlight line when yanking
-	'machakann/vim-sandwich',                       -- Add surroundings to text objects
+	},                              -- Improve %-jumping with treesitter integration
+	'folke/tokyonight.nvim',        -- Colour scheme that supports other plugins
+	'tpope/vim-commentary',         -- Comment out lines
+	'tpope/vim-sleuth',             -- Detect indentation
+	'tpope/vim-unimpaired',         -- [ and ] shortcuts
+	'tpope/vim-fugitive',           -- Git plugin
+	'tpope/vim-rhubarb',            -- GitHub support for fugitive.vim
+	'machakann/vim-highlightedyank', -- Highlight line when yanking
+	'machakann/vim-sandwich',       -- Add surroundings to text objects
 	{
 		'justinmk/vim-sneak',
 		keys = {
@@ -102,7 +102,7 @@ return {
 		event = 'InsertEnter',
 		config = true
 	}, -- Insert closing characters for pairs
-	{ 'kyazdani42/nvim-web-devicons', lazy = true, config = true },
+	{ 'kyazdani42/nvim-web-devicons', lazy = true,    config = true },
 	{
 		'nvim-lualine/lualine.nvim',
 		dependencies = { 'kyazdani42/nvim-web-devicons' },
