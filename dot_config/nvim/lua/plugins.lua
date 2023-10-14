@@ -14,6 +14,25 @@ return {
 		dependencies = { 'nvim-lua/plenary.nvim' },
 	}, -- add LSP support for non-LSP tools
 	{
+		'stevearc/conform.nvim',
+		event = 'BufWritePost',
+		cmd = 'ConformInfo',
+		opts = function()
+			local config = {
+				formatters_by_ft = {},
+				format_after_save = {
+					lsp_fallback = true,
+				},
+			}
+			local languages = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'css', 'scss', 'less',
+				'html', 'json', 'jsonc', 'yaml', 'markdown', 'markdown.mdx', 'graphql', 'handlebars' }
+			for _, lang in pairs(languages) do
+				config.formatters_by_ft[lang] = { { 'prettierd', 'prettier' } }
+			end
+			return config
+		end,
+	}, -- define non-LSP formatters
+	{
 		'j-hui/fidget.nvim',
 		tag = 'legacy',
 		event = 'VeryLazy',

@@ -32,13 +32,6 @@ local on_attach = function(client, bufnr)
 
   vim.keymap.set('n', '<space>co', organizeImports, bufopts)
 
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    callback = function()
-      vim.lsp.buf.format({ async = false })
-    end,
-    buffer = bufnr
-  })
-
   vim.api.nvim_create_autocmd("CursorHold", {
     buffer = bufnr,
     callback = function()
