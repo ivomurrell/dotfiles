@@ -31,13 +31,11 @@ return {
       },
       mapping = cmp.mapping.preset.insert({
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping(function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
+        ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+        ['<S-CR>'] = function(fallback)
+          cmp.abort()
+          fallback()
+        end,
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
