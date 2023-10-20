@@ -271,9 +271,7 @@ return {
 				filetype = prettier_config
 			}
 		end
-	},                                          -- Format source files
-	'stevearc/dressing.nvim',                   -- Make input windows nicer
-	{ 'smerrill/vcl-vim-plugin', ft = 'vcl' },  -- VCL syntax support
-	{ 'imsnif/kdl.vim',          ft = 'kdl' },  -- KDL syntax support
-	{ 'hjson/vim-hjson',         ft = 'hjson' }, -- HJSON syntax support
+	},                                        -- Format source files
+	'stevearc/dressing.nvim',                 -- Make input windows nicer
+	{ 'smerrill/vcl-vim-plugin', ft = 'vcl' }, -- VCL syntax support
 }
