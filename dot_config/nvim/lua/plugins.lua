@@ -15,7 +15,7 @@ return {
 	}, -- add LSP support for non-LSP tools
 	{
 		'stevearc/conform.nvim',
-		event = 'BufWritePost',
+		event = 'BufWritePre',
 		cmd = 'ConformInfo',
 		opts = function()
 			local config = {
@@ -23,11 +23,27 @@ return {
 				format_after_save = {
 					lsp_fallback = true,
 				},
+				formatters = {
+					deno_fmt = {
+						cwd = require("conform.util").root_file({ "deno.json", "deno.jsonc" }),
+						require_cwd = true
+					}
+				}
 			}
 			local languages = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'css', 'scss', 'less',
 				'html', 'json', 'jsonc', 'yaml', 'markdown', 'markdown.mdx', 'graphql', 'handlebars' }
+			local deno_langs = { 'javascript', 'javascriptreact', 'json', 'jsonc', 'markdown', 'typescript', 'typescriptreact' }
+			local function supportedByDeno(ft)
+				for _, denolang in pairs(deno_langs) do
+					if denolang == ft then
+						return true
+					end
+				end
+			end
 			for _, lang in pairs(languages) do
-				config.formatters_by_ft[lang] = { { 'prettierd', 'prettier' } }
+				config.formatters_by_ft[lang] = supportedByDeno(lang) and
+						{ { 'deno_fmt', 'prettierd', 'prettier' } } or
+						{ { 'prettierd', 'prettier' } }
 			end
 			return config
 		end,
