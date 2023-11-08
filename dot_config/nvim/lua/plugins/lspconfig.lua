@@ -70,7 +70,13 @@ return {
       on_attach = on_attach,
       capabilities = capabilities,
       root_dir = require('lspconfig').util.find_package_json_ancestor,
-      single_file_support = false
+      single_file_support = false,
+      init_options = {
+        hostInfo = 'neovim',
+        preferences = {
+          disableSuggestions = true
+        }
+      }
     })
     require('lspconfig').denols.setup({
       on_attach = on_attach,
