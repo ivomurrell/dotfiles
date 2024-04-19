@@ -234,7 +234,8 @@ return {
 		version = "*",
 		dependencies = { 'kyazdani42/nvim-web-devicons' },
 		event = "VeryLazy",
-		config = true
+		config = true,
+		enabled = false
 	},                         -- Tabs in a buffer line
 	{ 'ojroques/nvim-bufdel' }, -- Don't close window when deleting buffers
 	{
