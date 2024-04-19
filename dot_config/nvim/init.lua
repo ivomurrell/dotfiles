@@ -18,6 +18,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.cmd [[colorscheme tokyonight]]
 
+vim.g.copilot_no_tab_map = true
+
 vim.api.nvim_create_augroup('numbertoggle', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
   callback = function()

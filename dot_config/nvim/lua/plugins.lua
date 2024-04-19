@@ -135,13 +135,21 @@ return {
 		'andymass/vim-matchup',
 		enabled = false,
 		event = { "BufReadPost", "BufNewFile" },
-	},                              -- Improve %-jumping with treesitter integration
-	'folke/tokyonight.nvim',        -- Colour scheme that supports other plugins
-	'tpope/vim-commentary',         -- Comment out lines
-	'tpope/vim-sleuth',             -- Detect indentation
-	'tpope/vim-unimpaired',         -- [ and ] shortcuts
-	'tpope/vim-fugitive',           -- Git plugin
-	'tpope/vim-rhubarb',            -- GitHub support for fugitive.vim
+	},                      -- Improve %-jumping with treesitter integration
+	'folke/tokyonight.nvim', -- Colour scheme that supports other plugins
+	'tpope/vim-commentary', -- Comment out lines
+	'tpope/vim-sleuth',     -- Detect indentation
+	'tpope/vim-unimpaired', -- [ and ] shortcuts
+	'tpope/vim-fugitive',   -- Git plugin
+	'tpope/vim-rhubarb',    -- GitHub support for fugitive.vim
+	{
+		'github/copilot.vim',
+		enabled = false,
+		event = { "BufReadPost", "BufNewFile" },
+		keys = {
+			{ '<C-J>', 'copilot#Accept("")', mode = 'i', expr = true, replace_keycodes = false }
+		}
+	},                              -- GitHub's LLM
 	'machakann/vim-highlightedyank', -- Highlight line when yanking
 	'machakann/vim-sandwich',       -- Add surroundings to text objects
 	{
