@@ -268,11 +268,11 @@ return {
 						find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" } })
 				end
 			},
-			{ '<leader>fg', '<cmd>Telescope live_grep<cr>' },
-			{ '<leader>*',  '<cmd>Telescope grep_string<cr>' },
-			{ '<leader>fb', '<cmd>Telescope buffers<cr>' },
-			{ '<leader>ft', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>' },
-			{ '<leader>fh', '<cmd>Telescope help_tags<cr>' },
+			{ '<space>g', '<cmd>Telescope live_grep<cr>' },
+			{ '<space>*', '<cmd>Telescope grep_string<cr>' },
+			{ '<space>b', '<cmd>Telescope buffers<cr>' },
+			{ '<space>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>' },
+			{ '<space>h', '<cmd>Telescope help_tags<cr>' },
 		},
 		config = function()
 			local telescope = require('telescope')
