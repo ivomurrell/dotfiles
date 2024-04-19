@@ -101,6 +101,8 @@ return {
 						lookahead = true,
 						keymaps = {
 							-- You can use the capture groups defined in textobjects.scm
+							["av"] = "@assignment.outer",
+							["iv"] = "@assignment.inner",
 							["as"] = "@statement.outer",
 							["a?"] = "@conditional.outer",
 							["i?"] = "@conditional.inner",
