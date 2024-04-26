@@ -1,3 +1,8 @@
+{{ if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) -}}
+# Add Apple Silicon homebrew prefix to PATH
+fish_add_path /opt/homebrew/bin
+
+{{ end -}}
 if status is-interactive
   # Set up the starship prompt
   function starship_transient_prompt_func
@@ -34,10 +39,6 @@ set fish_cursor_replace_one underscore
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
 
-{{ if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) -}}
-# Add Apple Silicon homebrew prefix to PATH
-fish_add_path /opt/homebrew/bin
-{{ end -}}
 {{ if eq .chezmoi.os "darwin" -}}
 # Disable homebrew environment hint messages
 set -gx HOMEBREW_NO_ENV_HINTS 1
