@@ -135,9 +135,12 @@ return {
 		'andymass/vim-matchup',
 		enabled = false,
 		event = { "BufReadPost", "BufNewFile" },
-	},                              -- Improve %-jumping with treesitter integration
-	'folke/tokyonight.nvim',        -- Colour scheme that supports other plugins
-	'tpope/vim-commentary',         -- Comment out lines
+	},                      -- Improve %-jumping with treesitter integration
+	'folke/tokyonight.nvim', -- Colour scheme that supports other plugins
+	{
+		'tpope/vim-commentary',
+		enabled = false
+	},                              -- Comment out lines
 	'tpope/vim-sleuth',             -- Detect indentation
 	'tpope/vim-unimpaired',         -- [ and ] shortcuts
 	'tpope/vim-fugitive',           -- Git plugin
