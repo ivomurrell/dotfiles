@@ -143,6 +143,7 @@ return {
 	},                              -- Comment out lines
 	'tpope/vim-sleuth',             -- Detect indentation
 	'tpope/vim-unimpaired',         -- [ and ] shortcuts
+	'tpope/vim-obsession',          -- Automatically save session
 	'tpope/vim-fugitive',           -- Git plugin
 	'tpope/vim-rhubarb',            -- GitHub support for fugitive.vim
 	'machakann/vim-highlightedyank', -- Highlight line when yanking
@@ -191,6 +192,7 @@ return {
 				sections = {
 					lualine_c = { { 'filename', path = 1 } },
 					lualine_x = { indentation, 'filetype' },
+					lualine_y = { 'ObsessionStatus', 'progress' },
 				},
 				extensions = { 'fugitive', 'nvim-tree' }
 			}

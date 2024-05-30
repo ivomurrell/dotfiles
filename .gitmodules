@@ -1,3 +1,6 @@
 [submodule "dot_config/alacritty/external_themes"]
 	path = dot_config/alacritty/external_themes
 	url = https://github.com/alacritty/alacritty-theme
+[submodule "dot_tmux/plugins/external_tpm"]
+	path = dot_tmux/plugins/external_tpm
+	url = https://github.com/tmux-plugins/tpm
