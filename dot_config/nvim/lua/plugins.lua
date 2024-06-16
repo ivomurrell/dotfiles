@@ -277,7 +277,13 @@ return {
 			},
 			{ '<space>g', '<cmd>Telescope live_grep<cr>' },
 			{ '<space>*', '<cmd>Telescope grep_string<cr>' },
-			{ '<space>b', '<cmd>Telescope buffers<cr>' },
+			{ '<space>b',
+				function()
+					require('telescope.builtin').buffers({
+						sort_mru = true
+					})
+				end
+			},
 			{ '<space>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>' },
 			{ '<space>h', '<cmd>Telescope help_tags<cr>' },
 		},
