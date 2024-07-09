@@ -1,18 +1,5 @@
 return {
-	'folke/lazy.nvim',                                  -- Package manager
-	{ 'lewis6991/impatient.nvim',     enabled = false }, -- Implements caching to speed up startup
-	{
-		"dstein64/vim-startuptime",
-		cmd = "StartupTime",
-		init = function()
-			vim.g.startuptime_tries = 10
-		end,
-	},
-	{
-		'jose-elias-alvarez/null-ls.nvim',
-		enabled = false,
-		dependencies = { 'nvim-lua/plenary.nvim' },
-	}, -- add LSP support for non-LSP tools
+	'folke/lazy.nvim', -- Package manager
 	{
 		'stevearc/conform.nvim',
 		event = 'BufWritePre',
@@ -83,7 +70,6 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter-textobjects', -- Add treesitter groups as textobjects
-			'andymass/vim-matchup'
 		},
 		lazy = true,
 		build = ':TSUpdate',
@@ -130,17 +116,8 @@ return {
 		},
 		event = { "BufReadPost", "BufNewFile" },
 		config = true
-	}, -- Show surrounding functions when occluded
-	{
-		'andymass/vim-matchup',
-		enabled = false,
-		event = { "BufReadPost", "BufNewFile" },
-	},                      -- Improve %-jumping with treesitter integration
-	'folke/tokyonight.nvim', -- Colour scheme that supports other plugins
-	{
-		'tpope/vim-commentary',
-		enabled = false
-	},                              -- Comment out lines
+	},                              -- Show surrounding functions when occluded
+	'folke/tokyonight.nvim',        -- Colour scheme that supports other plugins
 	'tpope/vim-sleuth',             -- Detect indentation
 	'tpope/vim-unimpaired',         -- [ and ] shortcuts
 	'tpope/vim-obsession',          -- Automatically save session
@@ -177,7 +154,7 @@ return {
 		event = 'InsertEnter',
 		config = true
 	}, -- Insert closing characters for pairs
-	{ 'kyazdani42/nvim-web-devicons', lazy = true,    config = true },
+	{ 'kyazdani42/nvim-web-devicons', lazy = true, config = true },
 	{
 		'nvim-lualine/lualine.nvim',
 		dependencies = { 'kyazdani42/nvim-web-devicons' },
@@ -235,15 +212,7 @@ return {
 			{ '<leader>n', '<cmd>NvimTreeFindFile<cr>' }
 		},
 		opts = { actions = { open_file = { quit_on_open = true } } }
-	}, -- Graphical file explorer
-	{
-		'akinsho/bufferline.nvim',
-		version = "*",
-		dependencies = { 'kyazdani42/nvim-web-devicons' },
-		event = "VeryLazy",
-		config = true,
-		enabled = false
-	},                         -- Tabs in a buffer line
+	},                         -- Graphical file explorer
 	{ 'ojroques/nvim-bufdel' }, -- Don't close window when deleting buffers
 	{
 		'folke/trouble.nvim',
@@ -254,9 +223,7 @@ return {
 			{ '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>' },
 		},
 		config = true
-	},                                                                                       -- List diagnositic errors
-	{ 'mfussenegger/nvim-dap', enabled = false },                                            -- Debugging tooling
-	{ 'rcarriga/nvim-dap-ui',  enabled = false, dependencies = { 'mfussenegger/nvim-dap' } }, -- UI for debugging
+	}, -- List diagnositic errors
 	{
 		'nvim-telescope/telescope.nvim',
 		version = '^0.1.0',
@@ -307,27 +274,7 @@ return {
 		enabled = false,
 		dependencies = 'nvim-lua/plenary.nvim',
 		config = true
-	}, -- Magit clone for Neovim
-	{
-		'mhartington/formatter.nvim',
-		enabled = false,
-		ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'rust' },
-		config = function()
-			local prettier_files = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
-			local prettier_config = {}
-			for _, ft in pairs(prettier_files) do
-				prettier_config[ft] = { require('formatter.filetypes.' .. ft).prettier }
-			end
-			local rust_fmt = require('formatter.filetypes.rust').rustfmt()
-			rust_fmt.args = { ",--edition=2021" }
-			prettier_config['rust'] = { function()
-				return rust_fmt
-			end }
-			require('formatter').setup {
-				filetype = prettier_config
-			}
-		end
-	},                                        -- Format source files
+	},                                        -- Magit clone for Neovim
 	'stevearc/dressing.nvim',                 -- Make input windows nicer
 	{ 'smerrill/vcl-vim-plugin', ft = 'vcl' }, -- VCL syntax support
 }
