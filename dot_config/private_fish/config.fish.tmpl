@@ -62,9 +62,9 @@ abbr -a gd git diff
 abbr -a ns npm start
 
 {{- /* Use 1Password as an ssh agent on computers that have been set up for it */ -}}
-{{- if (and (ne .chezmoi.hostname "FT-MW1112") (lookPath "op")) }}
+{{- if stat (joinPath .chezmoi.homeDir "Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock") }}
 # Use 1Password as an ssh agent
-set -gx SSH_AUTH_SOCK "~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+set -gx SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 {{- end }}
 {{- if lookPath "aws" }}
 # Enable AWS CLI autocompletion: github.com/aws/aws-cli/issues/1079
