@@ -1,0 +1,11 @@
+theme = shades-of-purple
+font-family = Berkeley Mono
+
+{{ if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) -}}
+command = /opt/homebrew/bin/fish
+
+{{ end -}}
+macos-option-as-alt = true
+
+unfocused-split-opacity = 0.8
+window-step-resize = true
