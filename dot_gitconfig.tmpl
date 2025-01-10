@@ -6,6 +6,16 @@
 	name = Ivo Murrell
 	email = {{ .email }}
 	signingkey = {{ .signingkey }}
+[gpg]
+	format = ssh
+{{- if (eq .chezmoi.os "darwin") -}}
+{{ if (eq .chezmoi.arch "arm64") }}
+	program = "/opt/homebrew/bin/gpg"
+{{ end -}}
+[gpg "ssh"]
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+	allowedSignersFile = "~/.ssh/allowed_signers"
+{{ end -}}
 [commit]
 	gpgsign = true
 	verbose = true
