@@ -50,7 +50,7 @@ return {
   config = function()
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    require('lspconfig').tsserver.setup({
+    require('lspconfig').ts_ls.setup({
       on_attach = on_attach,
       capabilities = capabilities,
       root_dir = require('lspconfig').util.find_package_json_ancestor,
