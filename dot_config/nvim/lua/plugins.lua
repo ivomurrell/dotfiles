@@ -56,15 +56,15 @@ return {
 		},
 		event = { "BufReadPost", "BufNewFile" },
 		config = true
-	},                              -- Show surrounding functions when occluded
-	'folke/tokyonight.nvim',        -- Colour scheme that supports other plugins
-	'tpope/vim-sleuth',             -- Detect indentation
-	'tpope/vim-unimpaired',         -- [ and ] shortcuts
-	'tpope/vim-obsession',          -- Automatically save session
-	'tpope/vim-fugitive',           -- Git plugin
-	'tpope/vim-rhubarb',            -- GitHub support for fugitive.vim
-	'machakann/vim-highlightedyank', -- Highlight line when yanking
-	'machakann/vim-sandwich',       -- Add surroundings to text objects
+	},                                        -- Show surrounding functions when occluded
+	'folke/tokyonight.nvim',                  -- Colour scheme that supports other plugins
+	'tpope/vim-sleuth',                       -- Detect indentation
+	'tpope/vim-unimpaired',                   -- [ and ] shortcuts
+	'tpope/vim-obsession',                    -- Automatically save session
+	{ 'tpope/vim-fugitive', enabled = false }, -- Git plugin
+	{ 'tpope/vim-rhubarb',  enabled = false }, -- GitHub support for fugitive.vim
+	'machakann/vim-highlightedyank',          -- Highlight line when yanking
+	'machakann/vim-sandwich',                 -- Add surroundings to text objects
 	{
 		'justinmk/vim-sneak',
 		keys = {
@@ -210,10 +210,27 @@ return {
 		end
 	}, -- Fuzzy search for various lists such as project files
 	{
-		'TimUntersberger/neogit',
-		enabled = false,
-		dependencies = 'nvim-lua/plenary.nvim',
-		config = true
+		'NeogitOrg/neogit',
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'sindrets/diffview.nvim',
+			'nvim-telescope/telescope.nvim'
+		},
+		cmd = 'Neogit',
+		config = {
+			kind = "replace",
+			ignored_settings = {
+				"NeogitPushPopup--force-with-lease",
+				"NeogitPushPopup--force",
+				"NeogitPullPopup--rebase",
+				"NeogitCommitPopup--allow-empty",
+				"NeogitRevertPopup--no-edit",
+				"NeogitCommitPopup--no-verify"
+			},
+			commit_view = {
+				kind = "auto"
+			}
+		}
 	},                                        -- Magit clone for Neovim
 	'stevearc/dressing.nvim',                 -- Make input windows nicer
 	{ 'smerrill/vcl-vim-plugin', ft = 'vcl' }, -- VCL syntax support
