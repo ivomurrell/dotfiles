@@ -187,6 +187,8 @@ return {
 			{ '<space>b',
 				function()
 					require('telescope.builtin').buffers({
+						ignore_current_buffer = true,
+						initial_mode = 'normal',
 						sort_mru = true
 					})
 				end
