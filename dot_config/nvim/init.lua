@@ -23,16 +23,16 @@ vim.diagnostic.config({ float = { source = true, border = 'rounded' } })
 vim.api.nvim_create_augroup('numbertoggle', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
   callback = function()
-    if vim.opt.number:get() and vim.api.nvim_get_mode().mode ~= 'i' then
-      vim.opt.relativenumber = true
+    if vim.o.number and vim.api.nvim_get_mode().mode ~= 'i' then
+      vim.o.relativenumber = true
     end
   end,
   group = 'numbertoggle'
 })
 vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
   callback = function()
-    if vim.opt.number:get() then
-      vim.opt.relativenumber = false
+    if vim.o.number then
+      vim.o.relativenumber = false
     end
   end,
   group = 'numbertoggle'
