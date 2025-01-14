@@ -179,7 +179,7 @@ return {
 			{ '<space><space>',
 				function()
 					require('telescope.builtin').find_files({
-						find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" } })
+						find_command = { "rg", "--files", "--hidden", "--no-require-git", "--glob", "!.{git,jj}/" } })
 				end
 			},
 			{ '<space>g', '<cmd>Telescope live_grep<cr>' },
