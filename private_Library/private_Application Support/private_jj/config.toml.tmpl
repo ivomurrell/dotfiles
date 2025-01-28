@@ -10,3 +10,12 @@ pager = "less -RF --mouse"
 sign-all = true
 backend = "ssh"
 key = {{ .keyfile | toToml }}
+
+[template-aliases]
+'short_description' = '''
+description.first_line().remove_prefix('feat: ').remove_prefix('fix: ')
+'''
+'truncate_length' = '29'
+'truncated_description' = '''
+truncate_end(truncate_length, short_description) ++ if(short_description.len() > truncate_length, '…')
+'''
