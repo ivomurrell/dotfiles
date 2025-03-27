@@ -107,11 +107,18 @@ return {
 
 			require('lualine').setup {
 				sections = {
+					lualine_b = { { 'branch', fmt = function(display_string)
+						if #display_string > 20 then
+							return display_string:sub(1, 20) .. '...'
+						else
+							return display_string
+						end
+					end }, 'diff', 'diagnostics' },
 					lualine_c = { { 'filename', path = 1 } },
 					lualine_x = { indentation, 'filetype' },
 					lualine_y = { 'ObsessionStatus', 'progress' },
 				},
-				extensions = { 'fugitive', 'nvim-tree' }
+				extensions = { 'fugitive', 'lazy', 'nvim-tree' }
 			}
 		end
 	}, -- Customisable status line
