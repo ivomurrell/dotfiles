@@ -71,4 +71,4 @@ jj log -r @ --no-graph --ignore-working-copy --color always -n 1 -T '
     )
   '
 '''
-symbol = "🥋 "
+symbol = "🐦 "
