@@ -64,7 +64,6 @@ jj log -r @ --no-graph --ignore-working-copy --color always -n 1 -T '
         if(hidden, "👻"),
         if(immutable, "🔒"),
       ),
-      raw_escape_sequence("\x1b[1;32m") ++ if(empty, "(empty)"),
       raw_escape_sequence("\x1b[1;32m") ++ coalesce(
         truncated_description,
         "(no description set)"
