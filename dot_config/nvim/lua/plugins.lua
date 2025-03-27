@@ -189,8 +189,22 @@ return {
 						find_command = { "rg", "--files", "--hidden", "--no-require-git", "--glob", "!.{git,jj}/" } })
 				end
 			},
-			{ '<space>g', '<cmd>Telescope live_grep<cr>' },
-			{ '<space>*', '<cmd>Telescope grep_string<cr>' },
+			{ '<space>g',
+				function()
+					require('telescope.builtin').live_grep({
+						additional_args = { "--no-require-git" },
+						glob_pattern = "!.{git,jj}/"
+					})
+				end
+			},
+			{ '<space>*',
+				function()
+					require('telescope.builtin').grep_string({
+						additional_args = { "--no-require-git" },
+						glob_pattern = "!.{git,jj}/"
+					})
+				end
+			},
 			{ '<space>b',
 				function()
 					require('telescope.builtin').buffers({
