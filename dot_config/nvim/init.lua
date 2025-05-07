@@ -17,8 +17,9 @@ vim.opt.splitright = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.cmd [[colorscheme tokyonight]]
+vim.opt.winborder = 'rounded'
 
-vim.diagnostic.config({ float = { source = true, border = 'rounded' } })
+vim.diagnostic.config({ virtual_lines = true })
 
 vim.api.nvim_create_augroup('numbertoggle', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
