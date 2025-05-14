@@ -14,6 +14,7 @@ key = {{ .keyfile | toToml }}
 backends.ssh.allowed-signers = "~/.ssh/allowed_signers"
 
 [git]
+push-new-bookmarks = true
 sign-on-push = true
 
 [template-aliases]
