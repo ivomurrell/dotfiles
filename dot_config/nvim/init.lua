@@ -16,8 +16,9 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.cmd [[colorscheme tokyonight]]
 vim.opt.winborder = 'rounded'
+vim.opt.completeopt:append({ 'fuzzy', 'noinsert', 'preview' })
+vim.cmd [[colorscheme tokyonight-storm]]
 
 vim.diagnostic.config({ virtual_lines = true })
 

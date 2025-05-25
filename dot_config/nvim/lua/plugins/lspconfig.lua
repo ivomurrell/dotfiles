@@ -1,8 +1,15 @@
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- Enable completion
+  if client:supports_method('textDocument/completion') then
+    local chars = { ' ', '.' };
+    for i = 65, 90 do table.insert(chars, string.char(i)) end
+    for i = 97, 122 do table.insert(chars, string.char(i)) end
+
+    client.server_capabilities.completionProvider.triggerCharacters = chars
+    vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+  end
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -42,14 +49,10 @@ end
 
 return {
   'neovim/nvim-lspconfig',
-  dependencies = { 'hrsh7th/cmp-nvim-lsp' },
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
     require('lspconfig').ts_ls.setup({
       on_attach = on_attach,
-      capabilities = capabilities,
       root_dir = require('lspconfig').util.find_package_json_ancestor,
       single_file_support = false,
       init_options = {
@@ -61,7 +64,6 @@ return {
     })
     require('lspconfig').denols.setup({
       on_attach = on_attach,
-      capabilities = capabilities,
       root_dir = require('lspconfig').util.root_pattern("deno.json", "deno.jsonc"),
     })
     vim.g.markdown_fenced_lanuages = {
@@ -69,7 +71,6 @@ return {
     }
     require('lspconfig').rust_analyzer.setup({
       on_attach = on_attach,
-      capabilities = capabilities,
       settings = {
         ['rust-analyzer'] = {
           checkOnSave = {
@@ -80,7 +81,6 @@ return {
     })
     require('lspconfig').lua_ls.setup({
       on_attach = on_attach,
-      capabilities = capabilities,
       settings = {
         Lua = {
           runtime = {
@@ -105,10 +105,8 @@ return {
     })
     require('lspconfig').r_language_server.setup({
       on_attach = on_attach,
-      capabilities = capabilities,
     })
     require('lspconfig').eslint.setup {
-      capabilities = capabilities
     }
   end
 } -- Collection of configurations for the built-in LSP client
