@@ -3,3 +3,6 @@
 --max-columns-preview
 
 --smart-case
+
+# Support jj repos
+--no-require-git
