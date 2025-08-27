@@ -32,8 +32,8 @@ return {
     end
     for _, lang in pairs(languages) do
       config.formatters_by_ft[lang] = supportedByDeno(lang) and
-          { { 'deno_fmt', 'prettierd', 'prettier' } } or
-          { { 'prettierd', 'prettier' } }
+          { 'deno_fmt', 'prettierd', 'prettier', stop_after_first = true } or
+          { 'prettierd', 'prettier', stop_after_first = true }
     end
     return config
   end,
