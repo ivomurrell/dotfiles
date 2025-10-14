@@ -228,7 +228,6 @@ return {
 							["<Up>"] = require('telescope.actions').cycle_history_prev,
 						}
 					},
-					border = false
 				}
 			})
 		end
