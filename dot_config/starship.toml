@@ -1,10 +1,8 @@
-# add_newline = false
 command_timeout = 2000
 right_format = "$time"
 
 [aws]
 disabled = true
-# format = '(on [$symbol$profile]($style) )'
 
 [battery]
 disabled = false
@@ -18,34 +16,19 @@ style = "bold red"
 threshold = 50
 style = "bold yellow"
 
-# [[battery.display]]
-# threshold = 100
-# style = "bold green"
-
 [cmd_duration]
 show_notifications = true
 min_time_to_notify = 10_000
 notification_timeout = 3_500
 
-# [directory]
-# style = "blue"
-
-# [git_branch]
-# symbol = ""
-# style = "bright-black"
-
 [git_status]
 format = '([\[$conflicted$deleted$renamed$modified$staged$untracked$ahead_behind\]]($style) )'
-# style = "bright-black"
 
 [nodejs]
 detect_extensions = []
 
 [package]
 disabled = true
-
-# [python]
-# format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
 [time]
 disabled = false
