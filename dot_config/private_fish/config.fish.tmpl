@@ -74,6 +74,7 @@ complete --command aws --no-files --arguments '(begin; set --local --export COMP
 {{- if lookPath "volta" }}
 set -gx VOLTA_HOME "$HOME/.volta"
 fish_add_path "$VOLTA_HOME/bin"
+set -gx npm_config_loglevel error
 {{- end }}
 
 set -gx EDITOR nvim
