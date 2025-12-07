@@ -19,6 +19,7 @@ backends.ssh.allowed-signers = "~/.ssh/allowed_signers"
 colocate = true
 push-new-bookmarks = true
 sign-on-push = true
+private-commits = "wip()"
 
 [aliases]
 log-all = ["log", "--revisions", "all()"]
@@ -49,3 +50,9 @@ description.first_line().remove_prefix('feat: ').remove_prefix('fix: ')
 'truncated_description' = '''
 truncate_end(truncate_length, short_description) ++ if(short_description.len() > truncate_length, '…')
 '''
+
+[revsets]
+log = "ancestors(immutable_heads()..(heads(~wip())), 2) | @ | trunk()"
+
+[revset-aliases]
+'wip()' = 'description(glob-i:"{stash,wip}:*")'
