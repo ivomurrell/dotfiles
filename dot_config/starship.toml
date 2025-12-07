@@ -23,8 +23,14 @@ show_notifications = true
 min_time_to_notify = 10_000
 notification_timeout = 3_500
 
+[git_branch]
+disabled = true
+
+[git_commit]
+disabled = true
+
 [git_status]
-format = '([\[$conflicted$deleted$renamed$modified$staged$untracked$ahead_behind\]]($style) )'
+disabled = true
 
 [nodejs]
 detect_extensions = []
