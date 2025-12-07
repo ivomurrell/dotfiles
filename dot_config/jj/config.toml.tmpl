@@ -20,6 +20,14 @@ colocate = true
 push-new-bookmarks = true
 sign-on-push = true
 
+[aliases]
+log-all = ["log", "--revisions", "all()"]
+la = ["log-all"]
+new-trunk = ["new", "trunk()"]
+nt = ["new-trunk"]
+remain = ["rebase", "-d", "trunk()"]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to"]
+
 [templates]
 draft_commit_description = '''
 concat(
