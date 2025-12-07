@@ -51,7 +51,8 @@ return {
   'neovim/nvim-lspconfig',
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    require('lspconfig').ts_ls.setup({
+    vim.lsp.enable('ts_ls')
+    vim.lsp.config('ts_ls', {
       on_attach = on_attach,
       root_dir = require('lspconfig').util.find_package_json_ancestor,
       single_file_support = false,
@@ -62,14 +63,16 @@ return {
         }
       }
     })
-    require('lspconfig').denols.setup({
+    vim.lsp.enable('denols')
+    vim.lsp.config('denols', {
       on_attach = on_attach,
       root_dir = require('lspconfig').util.root_pattern("deno.json", "deno.jsonc"),
     })
     vim.g.markdown_fenced_lanuages = {
       "ts=typescript"
     }
-    require('lspconfig').rust_analyzer.setup({
+    vim.lsp.enable('rust_analyzer')
+    vim.lsp.config('rust_analyzer', {
       on_attach = on_attach,
       settings = {
         ['rust-analyzer'] = {
@@ -79,7 +82,8 @@ return {
         }
       }
     })
-    require('lspconfig').lua_ls.setup({
+    vim.lsp.enable('lua_ls')
+    vim.lsp.config('lua_ls', {
       on_attach = on_attach,
       settings = {
         Lua = {
@@ -103,10 +107,7 @@ return {
         },
       },
     })
-    require('lspconfig').r_language_server.setup({
-      on_attach = on_attach,
-    })
-    require('lspconfig').eslint.setup {
-    }
+    vim.lsp.enable('r_language_server')
+    vim.lsp.enable('eslint')
   end
 } -- Collection of configurations for the built-in LSP client
