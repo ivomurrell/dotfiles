@@ -44,7 +44,15 @@ concat(
 
 [template-aliases]
 'short_description' = '''
-description.first_line().remove_prefix('feat: ').remove_prefix('fix: ')
+description.first_line()
+  .replace(regex:"^feat(\\(.+\\))?:", "✨")
+  .replace(regex:"^fix(\\(.+\\))?:", "🐞")
+  .replace(regex:"^docs(\\(.+\\))?:", "📚")
+  .replace(regex:"^refactor(\\(.+\\))?:", "🔧")
+  .replace(regex:"^test(\\(.+\\))?:", "🧪")
+  .replace(regex:"^build(\\(.+\\))?:", "📦")
+  .replace(regex:"^ci(\\(.+\\))?:", "👷")
+  .replace(regex:"^(chore|backstage)(\\(.+\\))?:", "🧺")
 '''
 'truncate_length' = '29'
 'truncated_description' = '''
