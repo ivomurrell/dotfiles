@@ -38,21 +38,15 @@ disabled = false
 [custom.jj]
 when = "jj root"
 command = '''
-jj log -r @ --no-graph --ignore-working-copy --color always -n 1 -T '
+jj log -r 'heads(::@ ~ empty())' --no-graph --ignore-working-copy --color always -n 1 -T '
     separate(" ",
       change_id.shortest(4),
       bookmarks,
       "|",
-      concat(
-        if(conflict, "💥"),
-        if(divergent, "🚧"),
-        if(hidden, "👻"),
-        if(immutable, "🔒"),
-      ),
-      raw_escape_sequence("\x1b[1;32m") ++ coalesce(
+      label("empty description placeholder", coalesce(
         truncated_description,
         "(no description set)"
-      ) ++ raw_escape_sequence("\x1b[0m"),
+      )),
     )
   '
 '''
