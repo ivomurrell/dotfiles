@@ -233,6 +233,19 @@ return {
 		end
 	}, -- Fuzzy search for various lists such as project files
 	{
+		'saghen/blink.cmp',
+		version = '1.*',
+		config = {
+			keymap = { preset = 'enter' },
+			completion = {
+				keyword = { range = 'full' },
+				documentation = { auto_show = true, auto_show_delay_ms = 500 },
+				ghost_text = { enabled = true },
+			},
+			signature = { enabled = true }
+		}
+	},
+	{
 		'NeogitOrg/neogit',
 		dependencies = {
 			'nvim-lua/plenary.nvim',

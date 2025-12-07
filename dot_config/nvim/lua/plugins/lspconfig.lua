@@ -8,7 +8,7 @@ local on_attach = function(client, bufnr)
     for i = 97, 122 do table.insert(chars, string.char(i)) end
 
     client.server_capabilities.completionProvider.triggerCharacters = chars
-    vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+    -- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
   end
 
   -- Mappings.
